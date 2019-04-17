@@ -1,0 +1,303 @@
+<!-- 
+type="company" 
+block="block/tinker.js" 
+generator="generator/tinker.js"  
+lib="tinker" 
+media="media/tinker"
+language="language/" 
+-->
+<script type="text/javascript" src="../../blocks/company/tinker.js"></script>
+<script type="text/javascript" src="../../generators/arduino/company/tinker.js"></script>
+<category id="tinkerchen" name="Tinker" colour="#252a34">
+<!-- ****************************************
+*****           显示器部分               *****
+******************************************** -->
+	<category id="tinker_display" name="显示器" colour="#675ba5">
+		<!--LED灯-->
+		<block type="tinker_led">
+			<value name="PIN">
+				<shadow type="pins_digital"></shadow>
+			</value>
+		</block>
+
+		<!--亮度调节-->
+		<block type="tinker_pwm_led">
+			<value name="PIN">
+				<shadow type="pins_pwm"></shadow>
+			</value>
+			<value name="NUM">
+				<shadow type="math_number">
+					<field name="NUM">0</field>
+				</shadow>
+			</value>
+		</block>
+
+		<!--RGB灯新版-->
+		<block type="tinker_rgb2">
+			<value name="PIN_R">
+				<shadow type="pins_pwm">
+					<field name="PIN">9</field>
+				</shadow>
+			</value>
+			<value name="RGB_R">
+				<shadow type="math_number">
+					<field name="NUM">0</field>
+				</shadow>
+			</value>
+			<value name="PIN_G">
+				<shadow type="pins_pwm">
+					<field name="PIN">10</field>
+				</shadow>
+			</value>
+			<value name="RGB_G">
+				<shadow type="math_number">
+					<field name="NUM">0</field>
+				</shadow>
+			</value>
+			<value name="PIN_B">
+				<shadow type="pins_pwm">
+					<field name="PIN">11</field>
+				</shadow>
+			</value>
+			<value name="RGB_B">
+				<shadow type="math_number">
+					<field name="NUM">0</field>
+				</shadow>
+			</value>
+		</block>
+
+		<block type="display_rgb_init">
+			<value name="PIN">
+			  <shadow type="pins_digital" />
+			</value>
+			<value name="LEDCOUNT">
+			  <shadow type="math_number">
+			    <field name="NUM">4</field>
+			  </shadow>
+			</value>
+			<value name="Brightness">
+			  <shadow type="math_number">
+			    <field name="NUM">20</field>
+			  </shadow>
+			</value>  
+		</block>
+
+		<block type="display_rgb">
+			<value name="PIN">
+			  <shadow type="pins_digital" />
+			</value>
+			<value name="_LED_">
+			  <shadow type="math_number">
+			    <field name="NUM">1</field>
+			  </shadow>
+			</value>
+			<value name="RVALUE">
+			  <shadow type="math_number">
+			    <field name="NUM">0</field>
+			  </shadow>
+			</value>
+			<value name="GVALUE">
+			  <shadow type="math_number">
+			    <field name="NUM">0</field>
+			  </shadow>
+			</value>
+			<value name="BVALUE">
+			  <shadow type="math_number">
+			    <field name="NUM">0</field>
+			  </shadow>
+			</value>
+		</block>
+
+		<block type="display_rgb2">
+			<value name="PIN">
+			  <shadow type="pins_digital" />
+			</value>
+			<value name="_LED_">
+			  <shadow type="math_number">
+			    <field name="NUM">1</field>
+			  </shadow>
+			</value>
+			<value name="Brightness">
+			  <shadow type="math_number">
+			    <field name="NUM">20</field>
+			  </shadow>
+			</value>  
+		</block>
+
+		<block type="display_rgb_rainbow1">
+			<value name="PIN">
+			  <shadow type="pins_digital" />
+			</value>
+			<value name="WAIT">
+			  <shadow type="math_number">
+			    <field name="NUM">20</field>
+			  </shadow>
+			</value>  
+			<value name="Brightness">
+			  <shadow type="math_number">
+			    <field name="NUM">20</field>
+			  </shadow>
+			</value>  
+		</block>
+
+		<block type="display_rgb_rainbow3">
+			<value name="PIN">
+			  <shadow type="pins_digital" />
+			</value>
+			<value name="rainbow_color">
+			  <shadow type="math_number">
+			    <field name="NUM">20</field>
+			  </shadow>
+			</value>
+		</block>
+	</category>
+
+<!-- ****************************************
+*****           执行器部分               *****
+******************************************** -->
+	<category id="tinker_actuator" name="执行器" colour="#39bae8">
+		<!-- 通用数字模块2:有源蜂鸣器|继电器|震动马达0111 -->
+        <block type="tinker_buzzer">
+            <value name="PIN">
+                <shadow type="pins_digital"></shadow>
+            </value>
+            <value name="STAT">
+                <shadow type="inout_highlow9">
+                </shadow>
+            </value>
+        </block>
+
+		<!-- 新版电机 -->
+		<block type="MAKER17_motorA" name="电机A转动">
+			<value name="PIN1">
+			  <shadow type="pins_digital">
+			    <field name="PIN">5</field>
+			  </shadow>
+			</value>
+			<value name="PIN2">
+			  <shadow type="pins_digital">
+			    <field name="PIN">4</field>
+			  </shadow>
+			</value>
+			<value name="speed">
+			  <shadow type="math_number">
+			    <field name="NUM">0</field>
+			  </shadow>
+			</value>
+		</block>
+		<block type="MAKER17_motorB" name="电机B转动">
+			<value name="PIN1">
+			  <shadow type="pins_digital">
+			    <field name="PIN">6</field>
+			  </shadow>
+			</value>
+			<value name="PIN2">
+			  <shadow type="pins_digital">
+			    <field name="PIN">7</field>
+			  </shadow>
+			</value>
+			<value name="speed">
+			  <shadow type="math_number">
+			    <field name="NUM">0</field>
+			  </shadow>
+			</value>
+		</block>
+	</category>
+
+<!-- ****************************************
+*****           传感器部分               *****
+******************************************** -->
+	<category id="tinker_sensor" name="传感器" colour="#47C5CA">
+		<!--按钮-->
+		<block type="tinker_btn">
+			<value name="PIN">
+				<shadow type="pins_digital"></shadow>
+			</value>
+		</block>
+
+		<!--电位器-->
+		<block type="tinker_potentiometer">
+			<value name="PIN">
+				<shadow type="pins_analog"></shadow>
+			</value>
+		</block>
+
+		<!--摇杆（模拟）-->
+		<block type="tinker_joystick_a">
+			<value name="PIN">
+				<shadow type="pins_analog"></shadow>
+			</value>
+		</block>
+
+		<!--三轴加速度-->
+		<block type="tinker_accelerometer">
+			<value name="PIN">
+				<shadow type="pins_analog"></shadow>
+			</value>
+		</block>
+	</category>
+
+<!-- ****************************************
+*****           小众模块部分               *****
+******************************************** -->
+	<category id="tinker_others" name="小众模块" colour="#ff2e63">
+      <!--红外ir receiver -->
+        <block type="yf_ir_recv">
+          <value name="PIN">
+              <shadow type="pins_digital">
+                <field name="PIN">11</field>
+              </shadow>
+          </value>
+        </block>
+      <!-- 红外mini遥控器键值 -->
+        <block type="yf_ir_val">
+        </block>
+
+		<!-- 多任务 -->
+		<block type="iscoop_task">
+		  <field name="ISCOOP_TASK_NAME">task1</field>
+		  <statement name="ISCOOP_TASK_STATEMENT">
+		    <block type="iscoop_delay">
+		      <value name="scoop_delay">
+		        <shadow type="math_number">
+		          <field name="ISCOOP_DELAY_VALUE">0</field>
+		        </shadow>
+		      </value>
+		    </block>
+		  </statement>
+		</block>
+		<!-- 多任务延时 -->
+		<block type="iscoop_delay">
+		  <value name="scoop_delay">
+		    <shadow type="math_number">
+		      <field name="ISCOOP_DELAY_VALUE">0</field>
+		    </shadow>
+		  </value>
+		</block>
+		<!-- 多任务启动 -->
+		<block type="iscoop_start_task"></block>
+
+			<!-- 语音识别初始化 -->
+		<block type="df_VoiceRecognitionInit"> </block>
+		<!-- 添加语音识别内容 -->
+		<block type="df_VoiceAddCommand"> 
+			<value name="TEXT">
+				<block type="text">
+					<field name="TEXT"></field>
+				</block>
+			</value>
+			<value name="index">
+				<shadow type="math_number">
+					<field name="NUM">0</field>
+				</shadow>
+			</value>
+		</block>
+		<!-- 开始语音识别 -->
+		<block type="df_VoiceStart"> </block>
+		<!-- 识别结果 -->
+		<block type="df_VoiceRead"> </block>					
+		<block type="df_ASRInit"></block>
+		<block type="df_ASRResult"></block>
+		<block type="df_ASRBusy"></block>
+	</category> 
+</category>
