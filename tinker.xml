@@ -82,6 +82,17 @@ language="language/"
 			</value>  
 		</block>
 
+		<block type="display_rgb_brightness">
+			<value name="PIN">
+			  <shadow type="pins_digital" />
+			</value>
+			<value name="Brightness2">
+			  <shadow type="math_number">
+			    <field name="NUM">20</field>
+			  </shadow>
+			</value>  
+		</block>
+
 		<block type="display_rgb">
 			<value name="PIN">
 			  <shadow type="pins_digital" />
@@ -230,11 +241,11 @@ language="language/"
 		</block>
 
 		<!--三轴加速度-->
-		<block type="tinker_accelerometer">
+<!-- 		<block type="tinker_accelerometer">
 			<value name="PIN">
 				<shadow type="pins_analog"></shadow>
 			</value>
-		</block>
+		</block> -->
 	</category>
 
 <!-- ****************************************
@@ -296,8 +307,75 @@ language="language/"
 		<block type="df_VoiceStart"> </block>
 		<!-- 识别结果 -->
 		<block type="df_VoiceRead"> </block>					
-		<block type="df_ASRInit"></block>
+<!-- 		<block type="df_ASRInit"></block>
 		<block type="df_ASRResult"></block>
-		<block type="df_ASRBusy"></block>
-	</category> 
+		<block type="df_ASRBusy"></block> -->
+	</category>
+
+<!-- ****************************************
+*****           MP3模块部分               *****
+******************************************** -->
+	<category id="tinker_mp3" name="MP3模块" colour="#282923">
+	<!-- mini mp3模块 -->
+	<!-- MP3初始化 -->
+		<block type="MP3_init">
+		  <value name="RX">
+		    <shadow type="pins_digital">
+		    </shadow>
+		  </value>
+		  <value name="TX">
+		    <shadow type="pins_digital">
+		    </shadow>
+		  </value>
+		</block>
+
+<!-- MP3设置音量 -->
+		<block type="MP3_volume">
+		  <value name="mp3_set_volume">
+		    <shadow type="math_number">
+		      <field name="MP3_VOLUME_VALUE">1</field>
+		    </shadow>
+		  </value>
+		</block>	
+
+<!-- MP3设置音质 -->
+		<block type="MP3_EQ">
+		  <value name="mp3_set_eq">
+		    <shadow type="math_number">
+		      <field name="MP3_EQ_VALUE">1</field>
+		    </shadow>
+		  </value>
+		</block>	
+
+<!-- MP3播放歌单 -->
+		<block type="MP3_play">
+		  <value name="mp3_play">
+		    <shadow type="math_number">
+		      <field name="MP3_PLAY_VALUE">1</field>
+		    </shadow>
+		  </value>
+		</block>		
+
+<!-- MP3暂停播放 -->
+		<block type="MP3_pause"></block>
+
+<!-- MP3播放结束 -->
+		<block type="MP3_stop"></block>
+
+<!-- MP3开始播放 -->
+		<block type="MP3_start"></block>
+
+<!-- 上一首 -->
+		<block type="MP3_prev"></block>
+
+<!-- 下一首 -->
+		<block type="MP3_next"></block>
+
+<!-- 随机播放 -->
+		<block type="MP3_random"></block>
+
+<!-- 单曲循环 -->
+		<!-- <block type="MP3_loop"></block> -->
+
+	</category>
 </category>

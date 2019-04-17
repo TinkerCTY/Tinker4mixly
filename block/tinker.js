@@ -102,6 +102,28 @@ Blockly.Blocks.display_rgb_init = {
     }
 };
 
+// 新增亮度
+Blockly.Blocks.display_rgb_brightness = {
+    init: function () {
+        this.setColour(tinker2_bgc);
+        this.appendDummyInput("")
+            .appendField(Blockly.TINKER_WS2812)
+        this.appendValueInput("PIN", Number)
+           .setCheck(Number)
+           .setAlign(Blockly.ALIGN_RIGHT)
+           .appendField(Blockly.MIXLY_PIN);
+        this.appendValueInput("Brightness2")
+            .setCheck(Number)
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("亮度");
+        this.setInputsInline(true);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setTooltip('');
+    }
+};
+
+
 Blockly.Blocks.display_rgb = {
     init: function () {
         this.setColour(tinker2_bgc);
@@ -373,20 +395,20 @@ Blockly.Blocks.tinker_joystick_a = {
 };
 
 // 三轴加速度
-Blockly.Blocks.tinker_accelerometer = {
-  init: function() {
-    this.setColour(tinker2_bgc);
-    this.appendDummyInput("")
-        .appendTitle(Blockly.MIXLY_TINKER_ACCELEROMETER)
-    .appendTitle(new Blockly.FieldDropdown([["x", "x"], ["y", "y"], ["z", "z"]]), "STAT");
-  this.appendValueInput("PIN", Number)
-        .appendTitle(Blockly.MIXLY_PIN)
-        .setCheck(Number);
-  this.setInputsInline(true);
-    this.setOutput(true, Number);
-    this.setTooltip('');
-  }
-};
+// Blockly.Blocks.tinker_accelerometer = {
+//   init: function() {
+//     this.setColour(tinker2_bgc);
+//     this.appendDummyInput("")
+//         .appendTitle(Blockly.MIXLY_TINKER_ACCELEROMETER)
+//     .appendTitle(new Blockly.FieldDropdown([["x", "x"], ["y", "y"], ["z", "z"]]), "STAT");
+//   this.appendValueInput("PIN", Number)
+//         .appendTitle(Blockly.MIXLY_PIN)
+//         .setCheck(Number);
+//   this.setInputsInline(true);
+//     this.setOutput(true, Number);
+//     this.setTooltip('');
+//   }
+// };
 
 
 
@@ -457,6 +479,151 @@ Blockly.Blocks.tinker_accelerometer = {
     }
   };
 
+/***************************MP3**********************************/
+// MP3初始化
+Blockly.Blocks.MP3_init = {
+    init: function () {
+        this.setColour(tinker3_bgc);
+        this.appendDummyInput("").appendField("初始化MP3模块");
+        this.appendValueInput("RX")
+            .appendField("RX#")
+            .setCheck(Number);
+        this.appendValueInput("TX")
+            .appendField("TX#")
+            .setCheck(Number);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setInputsInline(true);
+        // this.setTooltip(Blockly.MIXLY_TOOLTIP_DS1307_INIT);
+    },
+};
+
+
+// MP3设置音量
+Blockly.Blocks.MP3_volume = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("音量设置为");
+    this.appendValueInput('mp3_set_volume')
+        .setCheck(Number);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(tinker3_bgc);
+    this.setTooltip('音量范围0-30，通常放在初始化中');
+  }
+};
+
+
+// MP3设置音质
+Blockly.Blocks.MP3_EQ = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("音质设置为");
+    this.appendValueInput('mp3_set_eq')
+        .setCheck(Number);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(tinker3_bgc);
+    this.setTooltip('音质可选0/1/2/3/4/5，代表Normal/Pop/Rock/Jazz/Classic/Bass');
+  }
+};
+
+// MP3开始播放
+Blockly.Blocks.MP3_start = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("开始播放");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(tinker3_bgc);
+  }
+};
+
+// 上一首
+Blockly.Blocks.MP3_prev = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("播放上一首");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(tinker3_bgc);
+  }
+};
+
+// 下一首
+Blockly.Blocks.MP3_next = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("播放下一首");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(tinker3_bgc);
+  }
+};
+
+// 随机播放
+Blockly.Blocks.MP3_random = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("随机播放");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(tinker3_bgc);
+  }
+};
+
+// 单曲循环
+// Blockly.Blocks.MP3_loop = {
+//   init: function() {
+//     this.appendDummyInput()
+//         .appendField("单曲循环");
+//     this.setPreviousStatement(true);
+//     this.setNextStatement(true);
+//     this.setColour(tinker3_bgc);
+//   }
+// };
+
+
+// MP3播放歌单
+Blockly.Blocks.MP3_play = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("播放歌单");
+    this.appendValueInput('mp3_play')
+        .setCheck(Number);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(tinker3_bgc);
+    this.setTooltip('播放歌单1表示播放tf卡中mp3目录下的0001.mp3');
+  }
+};
+
+// MP3暂停播放
+Blockly.Blocks.MP3_pause = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("暂停播放");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(tinker3_bgc);
+  }
+};
+
+// MP3播放结束
+Blockly.Blocks.MP3_stop = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("结束播放");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(tinker3_bgc);
+  }
+};
+
+/***************************多任务**********************************/
 // 多任务
 Blockly.Blocks['iscoop_task'] = {
   init: function() {
@@ -550,36 +717,36 @@ Blockly.Blocks.df_VoiceRead = {
 };
 /***************************语音识别控制板**********************************/
 //初始化
-Blockly.Blocks.df_ASRInit = {
-  init: function() {
-    this.setColour(tinker3_bgc);
-  this.appendDummyInput("")
-        .appendField(Blockly.MIXLY_ASRINIT)      
-  this.setInputsInline(true);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-  }
-};
+// Blockly.Blocks.df_ASRInit = {
+//   init: function() {
+//     this.setColour(tinker3_bgc);
+//   this.appendDummyInput("")
+//         .appendField(Blockly.MIXLY_ASRINIT)      
+//   this.setInputsInline(true);
+//     this.setPreviousStatement(true);
+//     this.setNextStatement(true);
+//   }
+// };
 
 //返回语音识别结果
-Blockly.Blocks.df_ASRResult = {
-  init: function() {
-    this.setColour(tinker3_bgc);
-  this.appendDummyInput("")
-        .appendField(Blockly.MIXLY_ASRRESULT)
-  this.setInputsInline(true);
-  this.setOutput(true, Number);
-  }
-};
+// Blockly.Blocks.df_ASRResult = {
+//   init: function() {
+//     this.setColour(tinker3_bgc);
+//   this.appendDummyInput("")
+//         .appendField(Blockly.MIXLY_ASRRESULT)
+//   this.setInputsInline(true);
+//   this.setOutput(true, Number);
+//   }
+// };
 
 //判断语音识别是否忙碌
-Blockly.Blocks.df_ASRBusy = {
-  init: function() {
-    this.setColour(tinker3_bgc);
-  this.appendDummyInput("")
-        .appendField(Blockly.MIXLY_ASRBUSY)
-  this.setInputsInline(true);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-  }
-};
+// Blockly.Blocks.df_ASRBusy = {
+//   init: function() {
+//     this.setColour(tinker3_bgc);
+//   this.appendDummyInput("")
+//         .appendField(Blockly.MIXLY_ASRBUSY)
+//   this.setInputsInline(true);
+//     this.setPreviousStatement(true);
+//     this.setNextStatement(true);
+//   }
+// };

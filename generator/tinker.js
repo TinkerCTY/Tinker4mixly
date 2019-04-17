@@ -47,6 +47,18 @@ Blockly.Arduino.tinker_rgb2=function(){
     Blockly.Arduino.setups_['setup_rgb_display_begin_' + dropdown_rgbpin] = 'rgb_display_' + dropdown_rgbpin + '.begin();\nrgb_display_' + dropdown_rgbpin + '.setBrightness('+Brightness+');';
     return '';
   };
+
+// 新增亮度
+  Blockly.Arduino.display_rgb_brightness=function(){
+    var dropdown_rgbpin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_ATOMIC);
+    var Brightness2 = Blockly.Arduino.valueToCode(this, 'Brightness2',Blockly.Arduino.ORDER_ATOMIC);
+    // Blockly.Arduino.definitions_['include_Adafruit_NeoPixel'] = '#include <Adafruit_NeoPixel.h>';
+    // Blockly.Arduino.definitions_['var_rgb_display' + dropdown_rgbpin] = 'Adafruit_NeoPixel  rgb_display_' + dropdown_rgbpin +  '= Adafruit_NeoPixel(' + value_ledcount + ','+dropdown_rgbpin+',NEO_GRB + NEO_KHZ800);';
+    // Blockly.Arduino.setups_['setup_rgb_display_begin_' + dropdown_rgbpin] = 'rgb_display_' + dropdown_rgbpin + '.begin();\nrgb_display_' + dropdown_rgbpin + '.setBrightness('+Brightness+');';
+    var code = 'rgb_display_' + dropdown_rgbpin + '.setBrightness('+Brightness2+');\n'
+    return code;
+  };
+
   Blockly.Arduino.display_rgb=function(){
     var dropdown_rgbpin = Blockly.Arduino.valueToCode(this, 'PIN',Blockly.Arduino.ORDER_ATOMIC);
     var value_led = Blockly.Arduino.valueToCode(this, '_LED_', Blockly.Arduino.ORDER_ATOMIC);
@@ -328,13 +340,13 @@ Blockly.Arduino.tinker_potentiometer = function() {
 Blockly.Arduino.tinker_joystick_a = Blockly.Arduino.tinker_potentiometer;
 
 // 三轴加速度
-Blockly.Arduino.tinker_accelerometer = Blockly.Arduino.tinker_potentiometer;
+// Blockly.Arduino.tinker_accelerometer = Blockly.Arduino.tinker_potentiometer;
 
 
 /********************************************
 *****           小众模块部分              *****
 ********************************************/
-  //红外接收模块
+  //红外接收模块更新
   Blockly.Arduino.yf_ir_recv = function() {
     var variable = Blockly.Arduino.variableDB_.getName(this.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
     Blockly.Arduino.definitions_['var_declare'+variable] = 'long '+variable+';';
@@ -363,6 +375,37 @@ Blockly.Arduino.tinker_accelerometer = Blockly.Arduino.tinker_potentiometer;
     return code;
   };
 
+
+
+  //红外接收模块
+  // Blockly.Arduino.yf_ir_recv = function() {
+  //   var variable = Blockly.Arduino.variableDB_.getName(this.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  //   Blockly.Arduino.definitions_['var_declare'+variable] = 'long '+variable+';';
+  //   var dropdown_pin = Blockly.Arduino.valueToCode(this, 'PIN',Blockly.Arduino.ORDER_ATOMIC);
+  //   var branch = Blockly.Arduino.statementToCode(this, 'DO');
+  //   var branch2 = Blockly.Arduino.statementToCode(this, 'DO2');
+  //   var varName = Blockly.Arduino.variableDB_.getName(this.getFieldValue('VAR'),Blockly.Variables.NAME_TYPE);
+  //   Blockly.Arduino.definitions_['define_ir_recv'] = '#include <IRremote.h>\n';
+  //   //Blockly.Arduino.definitions_['var_declare'+varName] = 'long '+varName+';\n';
+  //   Blockly.Arduino.definitions_['var_ir_recv'+dropdown_pin] = 'IRrecv irrecv_'+dropdown_pin+'('+dropdown_pin+');\ndecode_results results_'+dropdown_pin+';\n';
+  //   Blockly.Arduino.setups_['setup_ir_recv_'+dropdown_pin] = 'irrecv_'+dropdown_pin+'.enableIRIn();';
+  //   var code="if (irrecv_"+dropdown_pin+".decode(&results_"+dropdown_pin+")) {\n"
+  //   code += '  '+variable+'=results_'+dropdown_pin+'.value;\n';
+  //   code += '  String type="UNKNOWN";\n';
+  //   ////////////////////////////////////////////////////////////////
+  //   code += '  String typelist[14]={"UNKNOWN", "NEC", "SONY", "RC5", "RC6", "DISH", "SHARP", "PANASONIC", "JVC", "SANYO", "MITSUBISHI", "SAMSUNG", "LG", "WHYNTER"};\n';
+  //   code += '  if(results_'+dropdown_pin+'.decode_type>=1&&results_'+dropdown_pin+'.decode_type<=13){\n';
+  //   code += '    type=typelist[results_'+dropdown_pin+'.decode_type];\n'
+  //   code += '  }\n';
+  //   code += '  Serial.print("IR TYPE:"+type+"  ");\n';
+  //   code += branch;
+  //   code +='  irrecv_'+dropdown_pin+'.resume();\n'
+  //   code +='} else {\n';
+  //   code +=branch2;
+  //   code +='}\n';
+  //   return code;
+  // };
+
   //红外mini遥控器键值
   Blockly.Arduino.yf_ir_val = function() {
     var code = (this.getFieldValue('VAL'));
@@ -372,7 +415,93 @@ Blockly.Arduino.tinker_accelerometer = Blockly.Arduino.tinker_potentiometer;
   };
 
 
+/***************************MP3**********************************/
+// MP3初始化
+Blockly.Arduino.MP3_init = function () {
+  var RX = Blockly.Arduino.valueToCode(this, 'RX', Blockly.Arduino.ORDER_ATOMIC);
+  var TX = Blockly.Arduino.valueToCode(this, 'TX', Blockly.Arduino.ORDER_ATOMIC);
+  // var RTCName = this.getFieldValue('RTCName');
+  Blockly.Arduino.definitions_['include_SoftwareSerial'] = '#include <SoftwareSerial.h>';
+  Blockly.Arduino.definitions_['include_MP3'] = '#include <Mini_Mp3.h>';
+  Blockly.Arduino.definitions_['var_MP3'] = 'SoftwareSerial ' + 'mp3Serial' + '(' + RX + ',' + TX + ');';
+  Blockly.Arduino.setups_['MP3_setups'] = 'mp3Serial.begin(9600);\n'+'  mp3_set_serial(mp3Serial);\n';
+  return "";
+}
 
+
+
+// MP3设置音量
+Blockly.Arduino.MP3_volume = function() {
+  var number_mp3_volume_value = Blockly.Arduino.valueToCode(this, 'mp3_set_volume',
+      Blockly.Arduino.ORDER_ASSIGNMENT) || '1';
+  // Blockly.Arduino.definitions_['define_i2c'] = '#include \"SCoop.h\"';
+  var code = 'mp3_set_volume('+number_mp3_volume_value+');\n';
+  return code;
+};
+
+// MP3设置音质
+Blockly.Arduino.MP3_EQ = function() {
+  var number_mp3_eq_value = Blockly.Arduino.valueToCode(this, 'mp3_set_eq',
+      Blockly.Arduino.ORDER_ASSIGNMENT) || '1';
+  // Blockly.Arduino.definitions_['define_i2c'] = '#include \"SCoop.h\"';
+  var code = 'mp3_set_EQ('+number_mp3_eq_value+');\n';
+  return code;
+};
+
+// MP3开始播放
+Blockly.Arduino.MP3_start = function() {
+  var code = 'mp3_play();\n';
+  return code;
+};
+
+// 上一首
+Blockly.Arduino.MP3_prev = function() {
+  var code = 'mp3_prev();\n';
+  return code;
+};
+
+// 下一首
+Blockly.Arduino.MP3_next = function() {
+  var code = 'mp3_next();\n';
+  return code;
+};
+
+// 随机播放
+Blockly.Arduino.MP3_random = function() {
+  var code = 'mp3_random_play();\n';
+  return code;
+};
+
+// 随机播放
+// Blockly.Arduino.MP3_loop = function() {
+//   var code = 'mp3_single_loop(1);\n';
+//   return code;
+// };
+
+
+// MP3播放歌单
+Blockly.Arduino.MP3_play = function() {
+  var number_mp3_play_value = Blockly.Arduino.valueToCode(this, 'mp3_play',
+      Blockly.Arduino.ORDER_ASSIGNMENT) || '1';
+  // Blockly.Arduino.definitions_['define_i2c'] = '#include \"SCoop.h\"';
+  var code = 'mp3_play('+number_mp3_play_value+');\n';
+  return code;
+};
+
+// MP3暂停播放
+Blockly.Arduino.MP3_pause = function() {
+  var code = 'mp3_pause();\n';
+  return code;
+};
+
+// MP3播放结束
+Blockly.Arduino.MP3_stop = function() {
+  var code = 'mp3_stop();\n';
+  return code;
+};
+
+
+/***************************多任务**********************************/
 // 多任务
 Blockly.Arduino['iscoop_task'] = function(block) {
   var text_iscoop_task_name = block.getFieldValue('ISCOOP_TASK_NAME');
@@ -441,37 +570,37 @@ Blockly.Arduino.df_VoiceRead = function() {
 
 /***************************语音识别控制板**********************************/
 //语音识别控制板初始化
-Blockly.Arduino.df_ASRInit = function() {         
-  Blockly.Arduino.definitions_['define_ASRB1'] = '#include "ASRB.h"';
-  Blockly.Arduino.definitions_['define_ASRB2'] = '#include "EEPROM.h"';
-  Blockly.Arduino.definitions_['define_ASRB3'] = '#include "SPI.h"';
-  Blockly.Arduino.definitions_['define_ASRB4'] = '#include "SoftwareSerial.h"';
+// Blockly.Arduino.df_ASRInit = function() {         
+//   Blockly.Arduino.definitions_['define_ASRB1'] = '#include "ASRB.h"';
+//   Blockly.Arduino.definitions_['define_ASRB2'] = '#include "EEPROM.h"';
+//   Blockly.Arduino.definitions_['define_ASRB3'] = '#include "SPI.h"';
+//   Blockly.Arduino.definitions_['define_ASRB4'] = '#include "SoftwareSerial.h"';
   
-  Blockly.Arduino.definitions_['var_ASR_sRecog'] = 'char sRecog['+35+']['+38+'] = {'+'"'+"kai deng"+'"'+','+'"'+"guan deng"+'"'+','+'"'+"zhun bei"+'"'+'};\n';
-  Blockly.Arduino.definitions_['var_ASR_fDigit'] = 'unsigned int fDigit['+35+'] = {'+252+','+253+','+254+'};\n';
+//   Blockly.Arduino.definitions_['var_ASR_sRecog'] = 'char sRecog['+35+']['+38+'] = {'+'"'+"kai deng"+'"'+','+'"'+"guan deng"+'"'+','+'"'+"zhun bei"+'"'+'};\n';
+//   Blockly.Arduino.definitions_['var_ASR_fDigit'] = 'unsigned int fDigit['+35+'] = {'+252+','+253+','+254+'};\n';
   
   
-  Blockly.Arduino.setups_['setup_ASRB_INIT'] = 'ASRB.Initialise(35,sRecog,fDigit);';
+//   Blockly.Arduino.setups_['setup_ASRB_INIT'] = 'ASRB.Initialise(35,sRecog,fDigit);';
   
-  var funcName='ExtInt0Handler';
+//   var funcName='ExtInt0Handler';
 
-  var code='void '+funcName+'()'+'{\n'
-  +'  ASRB.ProcessInt0();\n'
-  +'}\n';
-  Blockly.Arduino.definitions_[funcName] = code;
-  Blockly.Arduino.setups_['setup_attachInterrupt'] = 'attachInterrupt(0,'+funcName+',LOW);';
+//   var code='void '+funcName+'()'+'{\n'
+//   +'  ASRB.ProcessInt0();\n'
+//   +'}\n';
+//   Blockly.Arduino.definitions_[funcName] = code;
+//   Blockly.Arduino.setups_['setup_attachInterrupt'] = 'attachInterrupt(0,'+funcName+',LOW);';
   
-  return '';
-};
+//   return '';
+// };
 
 //返回语音识别结果
-Blockly.Arduino.df_ASRResult = function(){
-  var code = 'ASRB.Asr'+'(35,38,sRecog,fDigit,0)'
-  return [code, Blockly.Arduino.ORDER_ATOMIC];
-};
+// Blockly.Arduino.df_ASRResult = function(){
+//   var code = 'ASRB.Asr'+'(35,38,sRecog,fDigit,0)'
+//   return [code, Blockly.Arduino.ORDER_ATOMIC];
+// };
 
 //判断语音识别是否忙碌
-Blockly.Arduino.df_ASRBusy = function(){  
-  var code = 'ASRB.Busy_SD();\n'
-    return code;
-};
+// Blockly.Arduino.df_ASRBusy = function(){  
+//   var code = 'ASRB.Busy_SD();\n'
+//     return code;
+// };
