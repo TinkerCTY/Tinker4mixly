@@ -422,7 +422,7 @@ Blockly.Arduino.MP3_init = function () {
   var TX = Blockly.Arduino.valueToCode(this, 'TX', Blockly.Arduino.ORDER_ATOMIC);
   // var RTCName = this.getFieldValue('RTCName');
   Blockly.Arduino.definitions_['include_SoftwareSerial'] = '#include <SoftwareSerial.h>';
-  Blockly.Arduino.definitions_['include_MP3'] = '#include <Mini_Mp3.h>';
+  Blockly.Arduino.definitions_['include_MP3'] = '#include <DFPlayer_Mini_Mp3.h>';
   Blockly.Arduino.definitions_['var_MP3'] = 'SoftwareSerial ' + 'mp3Serial' + '(' + RX + ',' + TX + ');';
   Blockly.Arduino.setups_['MP3_setups'] = 'mp3Serial.begin(9600);\n'+'  mp3_set_serial(mp3Serial);\n';
   return "";
@@ -487,6 +487,19 @@ Blockly.Arduino.MP3_play = function() {
   var code = 'mp3_play('+number_mp3_play_value+');\n';
   return code;
 };
+
+// MP3播放指定目录下的歌单
+Blockly.Arduino.MP3_play_file_in_folder = function() {
+  var number_folder_value = Blockly.Arduino.valueToCode(this, 'folder',
+      Blockly.Arduino.ORDER_ASSIGNMENT) || '1';
+  var number_file_value = Blockly.Arduino.valueToCode(this, 'file',
+      Blockly.Arduino.ORDER_ASSIGNMENT) || '1';
+  // Blockly.Arduino.definitions_['define_i2c'] = '#include \"SCoop.h\"';
+  var code = 'mp3_play_file_in_folder(' + number_folder_value + ',' + number_file_value + ');\n';
+  return code;
+};
+
+
 
 // MP3暂停播放
 Blockly.Arduino.MP3_pause = function() {

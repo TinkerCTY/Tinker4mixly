@@ -354,7 +354,23 @@ language="language/"
 		      <field name="MP3_PLAY_VALUE">1</field>
 		    </shadow>
 		  </value>
-		</block>		
+		</block>	
+
+<!-- MP3播放指定目录下的歌单 -->
+		<block type="MP3_play_file_in_folder">
+		  <value name="folder">
+		    <shadow type="math_number">
+		      <field name="MP3_FOLDER_VALUE">1</field>
+		    </shadow>
+		  </value>
+		  <value name="file">
+		    <shadow type="math_number">
+		      <field name="MP3_FILE_VALUE">1</field>
+		    </shadow>
+		  </value>
+		</block>
+
+
 
 <!-- MP3暂停播放 -->
 		<block type="MP3_pause"></block>

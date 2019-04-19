@@ -601,6 +601,25 @@ Blockly.Blocks.MP3_play = {
   }
 };
 
+// MP3播放指定目录下的歌单
+Blockly.Blocks.MP3_play_file_in_folder = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("播放目录");
+    this.appendValueInput('folder')
+        .setCheck(Number);
+    this.appendDummyInput()
+        .appendField("歌单");
+    this.appendValueInput('file')
+        .setCheck(Number);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(tinker3_bgc);
+    this.setTooltip('播放目录11歌单1，表示播放tf卡中的11/0001.mp3');
+  }
+};
+
 // MP3暂停播放
 Blockly.Blocks.MP3_pause = {
   init: function() {
