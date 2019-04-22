@@ -198,7 +198,8 @@ Blockly.Blocks.display_rgb_rainbow1 = {
     }
 };
 
-Blockly.Blocks.display_rgb_rainbow2 = {
+// 新增彩虹轮转效果
+Blockly.Blocks.display_rgb_rainbowCycle = {
     init: function () {
         this.setColour(tinker2_bgc);
         this.appendDummyInput("")
@@ -217,6 +218,29 @@ Blockly.Blocks.display_rgb_rainbow2 = {
         this.setNextStatement(true, null);
     }
 };
+
+// 新增彩虹追逐特效
+Blockly.Blocks.display_rgb_rainbowChase = {
+    init: function () {
+        this.setColour(tinker2_bgc);
+        this.appendDummyInput("")
+            .appendField(Blockly.TINKER_WS2812)
+         this.appendValueInput("PIN", Number)
+            .setCheck(Number)
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField(Blockly.MIXLY_PIN);
+        this.appendValueInput("WAIT")
+            .setCheck(Number)
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("七彩追逐间隔时间");
+         
+        this.setInputsInline(true);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+    }
+};
+
+
 
 var DISPLAY_RAINBOW_TYPE = [
 ["普通", "normal"],

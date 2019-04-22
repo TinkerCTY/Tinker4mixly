@@ -118,8 +118,8 @@ Blockly.Arduino.tinker_rgb2=function(){
     var code = 'rainbow('+ wait_time+');\n'
     return code;
     };
-  //彩虹2
-  Blockly.Arduino.display_rgb_rainbow2=function(){
+  //彩虹2——新增彩虹轮转特效
+  Blockly.Arduino.display_rgb_rainbowCycle=function(){
     var dropdown_rgbpin = Blockly.Arduino.valueToCode(this, 'PIN',Blockly.Arduino.ORDER_ATOMIC);
     var wait_time = Blockly.Arduino.valueToCode(this, 'WAIT',Blockly.Arduino.ORDER_ATOMIC);
     Blockly.Arduino.definitions_['include_Adafruit_NeoPixel'] = '#include <Adafruit_NeoPixel.h>';
@@ -177,6 +177,59 @@ Blockly.Arduino.tinker_rgb2=function(){
    
    return code3;
   };
+
+//彩虹4——新增彩虹追逐特效
+  Blockly.Arduino.display_rgb_rainbowChase=function(){
+    var dropdown_rgbpin = Blockly.Arduino.valueToCode(this, 'PIN',Blockly.Arduino.ORDER_ATOMIC);
+    var wait_time = Blockly.Arduino.valueToCode(this, 'WAIT',Blockly.Arduino.ORDER_ATOMIC);
+    Blockly.Arduino.definitions_['include_Adafruit_NeoPixel'] = '#include <Adafruit_NeoPixel.h>';
+    if (!Blockly.Arduino.definitions_['var_rgb_display' + dropdown_rgbpin]) {
+      Blockly.Arduino.definitions_['var_rgb_display' + dropdown_rgbpin] = 'Adafruit_NeoPixel  rgb_display_' + dropdown_rgbpin +  '= Adafruit_NeoPixel(4,'+dropdown_rgbpin+',NEO_GRB + NEO_KHZ800);';
+      Blockly.Arduino.setups_['setup_rgb_display_begin_' + dropdown_rgbpin] = 'rgb_display_' + dropdown_rgbpin + '.begin();\n';
+    }
+    var funcName2 = 'Wheel';
+    var code2  = 'uint32_t Wheel(byte WheelPos) {\n';
+    code2 += 'if(WheelPos < 85)\n {\nreturn rgb_display_'+dropdown_rgbpin+'.Color(WheelPos * 3, 255 - WheelPos * 3, 0);} \n';
+    code2 += 'else if(WheelPos < 170)\n {\nWheelPos -= 85; return rgb_display_'+dropdown_rgbpin+'.Color(255 - WheelPos * 3, 0, WheelPos * 3);}\n ';
+    code2 += 'else {\nWheelPos -= 170;return rgb_display_'+dropdown_rgbpin+'.Color(0, WheelPos * 3, 255 - WheelPos * 3);}\n';
+    code2 += '}\n';
+    Blockly.Arduino.definitions_[funcName2] = code2;
+    // var funcName3 = 'rainbow';
+    // var code3  = 'void rainbow(uint8_t wait) { uint16_t i, j;\n';
+    // code3 += 'for(j=0; j<256; j++) {               \n';
+    // code3 += 'for(i=0; i<rgb_display_'+dropdown_rgbpin+'.numPixels(); i++)\n{\n';
+    // code3 += 'rgb_display_'+dropdown_rgbpin+'.setPixelColor(i, Wheel((i+j) & 255));\n}\n';                    
+    // code3 += 'rgb_display_'+dropdown_rgbpin+'.show();\n';
+    // code3 += 'delay(wait);\n}\n}\n';
+    // Blockly.Arduino.definitions_[funcName3] = code3;
+    // var funcName4 = 'rainbowCycle';
+    // var code4  = 'void rainbowCycle(uint8_t wait) \n{\nuint16_t i, j;\n';
+    // code4 += 'for(j=0; j<256*5; j++) {\n';
+    // code4 += 'for(i=0; i< rgb_display_'+dropdown_rgbpin+'.numPixels(); i++) \n{\n';
+    // code4 += 'rgb_display_'+dropdown_rgbpin+'.setPixelColor(i, Wheel(((i * 256 / rgb_display_'+dropdown_rgbpin+'.numPixels()) + j) & 255));}\n';
+    // code4 += 'rgb_display_'+dropdown_rgbpin+'.show();\n';
+    // code4 += 'delay(wait);\n}\n}\n';
+    // Blockly.Arduino.definitions_[funcName4] = code4;
+
+    var funcName5 = 'theaterChaseRainbow';
+    var code5  = 'void theaterChaseRainbow(uint8_t wait) \n{\n';
+    code5 += 'for(int j=0; j<256; j++) {\n';
+    code5 += 'for(int q=0; q<3; q++) {\n';
+    code5 += 'for(int i=0; i< rgb_display_'+dropdown_rgbpin+'.numPixels(); i=i+3) \n{\n';
+    code5 += 'rgb_display_'+dropdown_rgbpin+'.setPixelColor(i+q, Wheel((i+j)%255));}\n';
+    code5 += 'rgb_display_'+dropdown_rgbpin+'.show();\n';
+    code5 += 'delay(wait);\n';
+    code5 += 'for(int i=0; i< rgb_display_'+dropdown_rgbpin+'.numPixels(); i=i+3) \n{\n';
+    code5 += 'rgb_display_'+dropdown_rgbpin+'.setPixelColor(i+q,0);}\n';
+    code5 += '}\n}\n}\n';
+    Blockly.Arduino.definitions_[funcName5] = code5;
+
+    var code = 'theaterChaseRainbow('+ wait_time+');\n'
+    return code;
+  };
+
+
+
 
 
 /********************************************
