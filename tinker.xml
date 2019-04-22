@@ -288,6 +288,19 @@ language="language/"
 		<!-- 多任务启动 -->
 		<block type="iscoop_start_task"></block>
 
+
+		 <!--ASR-M08 -->
+        <block type="ASR_M08">
+		  <value name="RX">
+		    <shadow type="pins_digital">
+		    </shadow>
+		  </value>
+		  <value name="TX">
+		    <shadow type="pins_digital">
+		    </shadow>
+		  </value>
+        </block>
+
 			<!-- 语音识别初始化 -->
 		<block type="df_VoiceRecognitionInit"> </block>
 		<!-- 添加语音识别内容 -->

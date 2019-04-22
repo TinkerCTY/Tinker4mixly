@@ -684,6 +684,43 @@ Blockly.Blocks['iscoop_start_task'] = {
 
 
 /***************************语音识别扩展板**********************************/
+  //ASR_M08
+  Blockly.Blocks.ASR_M08 = {
+    init: function() {
+      this.setColour(tinker2_bgc);
+
+      this.appendDummyInput()
+          .appendField("初始化ASR-M08模块")
+          .appendField(" ")
+          .appendField(new Blockly.FieldTextInput('val'), 'VAR');
+
+      this.appendValueInput("RX")
+          .appendField("RX#")
+          .setCheck(Number);
+      this.appendValueInput("TX")
+          .appendField("TX#")
+          .setCheck(Number);
+
+      this.appendStatementInput('DO')
+          .appendField("有指令");
+      this.appendStatementInput('DO2')
+          .appendField("无指令");
+      this.setPreviousStatement(true);
+      this.setNextStatement(true);
+      this.setInputsInline(true);
+      this.setTooltip('ASR_M08语音识别模块');
+    },
+    getVars: function() {
+      return [this.getFieldValue('VAR')]; },
+    renameVar: function(oldName, newName) {
+      if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+        this.setTitleValue(newName, 'VAR');
+      }
+    }
+  };
+
+
+
 //语音识别初始化
 Blockly.Blocks.df_VoiceRecognitionInit = {
   init:function(){

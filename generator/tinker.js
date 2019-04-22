@@ -581,6 +581,35 @@ Blockly.Arduino.df_VoiceRead = function() {
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
+
+/***************************ASR-M08语音识别模块**********************************/
+
+  Blockly.Arduino.ASR_M08 = function() {
+    var variable = Blockly.Arduino.variableDB_.getName(this.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+    Blockly.Arduino.definitions_['var_declare'+variable] = 'int '+variable+';';
+
+    var RX = Blockly.Arduino.valueToCode(this, 'RX', Blockly.Arduino.ORDER_ATOMIC);
+    var TX = Blockly.Arduino.valueToCode(this, 'TX', Blockly.Arduino.ORDER_ATOMIC);
+    var branch = Blockly.Arduino.statementToCode(this, 'DO');
+    var branch2 = Blockly.Arduino.statementToCode(this, 'DO2');
+    var varName = Blockly.Arduino.variableDB_.getName(this.getFieldValue('VAR'),Blockly.Variables.NAME_TYPE);
+    // var RTCName = this.getFieldValue('RTCName');
+    Blockly.Arduino.definitions_['include_SoftwareSerial'] = '#include <SoftwareSerial.h>';
+    Blockly.Arduino.definitions_['var_ASRM08'] = 'SoftwareSerial ' + 'ASRM08Serial' + '(' + RX + ',' + TX + ');';
+    Blockly.Arduino.setups_['ASRM08_setups'] = 'ASRM08Serial.begin(9600);\n';
+
+    var code="if (ASRM08Serial.available()) {\n"
+    code += '  '+variable+' = ASRM08Serial.read();\n';
+    code += '  if('+variable+' != -1){\n';
+    code += '  '+branch;
+    code += '  }\n';
+    code +='} else {\n';
+    code +='  '+branch2;
+    code +='}\n';
+    return code;
+  };
+
+
 /***************************语音识别控制板**********************************/
 //语音识别控制板初始化
 // Blockly.Arduino.df_ASRInit = function() {         
