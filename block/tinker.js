@@ -16,6 +16,7 @@ Blockly.Blocks.tinker_led = {
   init: function() {
     this.setColour(tinker1_bgc);
     this.appendDummyInput("")
+      // .appendTitle('LED灯')
       .appendTitle(Blockly.MIXLY_TINKER_LED)
   this.appendValueInput("PIN", Number)
         .appendTitle(Blockly.MIXLY_PIN)
@@ -98,7 +99,7 @@ Blockly.Blocks.display_rgb_init = {
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setTooltip('');
+        this.setTooltip('亮度范围0-255');
     }
 };
 
@@ -119,7 +120,7 @@ Blockly.Blocks.display_rgb_brightness = {
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setTooltip('');
+        this.setTooltip('亮度范围0-255');
     }
 };
 
@@ -282,7 +283,7 @@ Blockly.Blocks.tinker_motor={
     this.setColour(tinker3_bgc);
     this.appendDummyInput("")
       .appendTitle(Blockly.MIXLY_TINKER_MOTOR)
-    .appendTitle("方向；速度(PWM)")
+    .appendTitle("方向引脚；速度引脚(PWM)")
       .appendTitle(new Blockly.FieldDropdown(TINKER_MS), "PIN");
     this.appendValueInput('speed')
         .setCheck(Number)
@@ -301,7 +302,7 @@ Blockly.Blocks.tinker_motor_stop={
     this.setColour(tinker3_bgc);
     this.appendDummyInput("")
       .appendTitle(Blockly.MIXLY_TINKER_MOTOR)
-    .appendTitle("方向；速度(PWM)")
+    .appendTitle("方向引脚；速度引脚(PWM)")
       .appendTitle(new Blockly.FieldDropdown(TINKER_MS), "PIN")
     .appendTitle(Blockly.MIXLY_STOP);
     this.setInputsInline(true);

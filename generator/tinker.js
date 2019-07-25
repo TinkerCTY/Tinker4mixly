@@ -254,14 +254,11 @@ Blockly.Arduino.tinker_motor=function(){
     + '  if (motorId == 1){\n'
     + '   speedPin = 5;\n'
     + '   directionPin = 4;\n'
-    + '  } else {\n'
+    + '  } \n'
     + '   if (motorId == 2){\n'
     + '     speedPin = 6;\n'
     + '     directionPin = 7;\n'
-    + '   } else {\n'
-    + '     return;\n'
-    + '   }\n'
-    + '  }\n'
+    + '   } \n'
     + '  if (speed == 0){\n'
     + '   digitalWrite(speedPin, LOW);\n'
     + '  }\n'
@@ -294,13 +291,13 @@ Blockly.Arduino.tinker_motor_stop=function(){
     + '  if (motorId == 1){\n'
     + '   speedPin = 5;\n'
     + '   directionPin = 4;\n'
-    + '  } else {\n'
+    + '  } \n'
     + '   if (motorId == 2){\n'
     + '     speedPin = 6;\n'
     + '     directionPin = 7;\n'
-    + '   } else {\n'
-    + '     return;\n'
-    + '   }\n'
+    + '   } \n'
+    + '  if (speed == 0){\n'
+    + '   digitalWrite(speedPin, LOW);\n'
     + '  }\n'
     + '  if (speed == 0){\n'
     + '   digitalWrite(speedPin, LOW);\n'
@@ -328,7 +325,7 @@ Blockly.Arduino.MAKER17_motorA = function() {
   Blockly.Arduino.setups_['setup_output_A_S_W'] = 'digitalWrite('+SPEED_PIN+', LOW);';
   Blockly.Arduino.setups_['setup_output_A_D_W'] = 'digitalWrite('+DIR_PIN+', LOW);';
   var funcName = 'setMotorA';
-  var code2 =' void setMotorA(int speedpin,int dirpin, int speed)\n {\nif (speed == 0)\n{\n   digitalWrite(speedpin, LOW);\n  } \n else if (speed > 0)\n{\n   digitalWrite(dirpin, LOW);\nanalogWrite(speedpin, speed);\n  } \nelse \n{\n digitalWrite(dirpin, HIGH);\n   analogWrite(speedpin, (0-speed));  \n}\n}\n';
+  var code2 =' void setMotorA(int speedpin,int dirpin, int speed)\n {\nif (speed == 0)\n{\n   digitalWrite(speedpin, LOW);\n  } \n if (speed > 0)\n{\n   digitalWrite(dirpin, HIGH);\nanalogWrite(speedpin, speed);\n  } \nelse \n{\n digitalWrite(dirpin, LOW);\n   analogWrite(speedpin, -speed);  \n}\n}\n';
   Blockly.Arduino.definitions_[funcName] = code2;
   return code;
 };
@@ -342,7 +339,7 @@ Blockly.Arduino.MAKER17_motorB = function() {
   Blockly.Arduino.setups_['setup_output_B_S_W'] = 'digitalWrite('+SPEED_PIN+', LOW);';
   Blockly.Arduino.setups_['setup_output_B_D_W'] = 'digitalWrite('+DIR_PIN+', LOW);';
   var funcName = 'setMotorB';
-  var code2 =' void setMotorB(int speedpin,int dirpin, int speed)\n {\nif (speed == 0)\n{\n   digitalWrite(speedpin, LOW);\n  }\n else if (speed > 0)\n{\n   digitalWrite(dirpin, LOW);\nanalogWrite(speedpin, speed);\n  } \nelse \n{\n digitalWrite(dirpin, HIGH);\n   analogWrite(speedpin, (0-speed));  \n}\n}\n';
+  var code2 =' void setMotorB(int speedpin,int dirpin, int speed)\n {\nif (speed == 0)\n{\n   digitalWrite(speedpin, LOW);\n  }\n if (speed > 0)\n{\n   digitalWrite(dirpin, HIGH);\nanalogWrite(speedpin, speed);\n  } \nelse \n{\n digitalWrite(dirpin, LOW);\n   analogWrite(speedpin, -speed);  \n}\n}\n';
   Blockly.Arduino.definitions_[funcName] = code2;
   return code;
 };
