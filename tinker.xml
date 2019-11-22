@@ -250,15 +250,15 @@ language="language/"
 			</value>
 		</block>
 		<!--电机驱动0911-->
-		<block type="tinker_motor">
+<!-- 		<block type="tinker_motor">
 			<value name="speed">
 				<shadow type="math_number">
 					<field name="NUM">0</field>
 				</shadow>
 			</value>
-		</block>
+		</block> -->
 		<!--电机停止0911-->
-		<block type="tinker_motor_stop"></block>
+		<!-- <block type="tinker_motor_stop"></block> -->
 	</category>
 
 <!-- ****************************************
@@ -388,6 +388,13 @@ language="language/"
 		  </value>
 		</block>
 
+	<!-- MP3降噪 -->
+		<block type="MP3_improve">
+			<value name="PIN">
+				<shadow type="pins_digital"></shadow>
+			</value>
+		</block>
+
 <!-- MP3设置音量 -->
 		<block type="MP3_volume">
 		  <value name="mp3_set_volume">
@@ -416,7 +423,7 @@ language="language/"
 		</block>	
 
 <!-- MP3播放指定目录下的歌单 -->
-		<block type="MP3_play_file_in_folder">
+<!-- 		<block type="MP3_play_file_in_folder">
 		  <value name="folder">
 		    <shadow type="math_number">
 		      <field name="MP3_FOLDER_VALUE">1</field>
@@ -427,7 +434,7 @@ language="language/"
 		      <field name="MP3_FILE_VALUE">1</field>
 		    </shadow>
 		  </value>
-		</block>
+		</block> -->
 
 
 

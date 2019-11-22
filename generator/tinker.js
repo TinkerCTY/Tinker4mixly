@@ -264,7 +264,7 @@ Blockly.Arduino.tinker_motor=function(){
     + '  }\n'
     + '  if (speed > 0){\n'
     + '   digitalWrite(directionPin, HIGH);\n'
-    + '   analogWrite(speedPin, speed);\n'
+    + '   analogWrite(speedPin, 255-speed);\n'
     + '  } else {\n'
     + '   digitalWrite(directionPin, LOW);\n'
     + '   analogWrite(speedPin, -speed);\n'
@@ -304,7 +304,7 @@ Blockly.Arduino.tinker_motor_stop=function(){
     + '  }\n'
     + '  if (speed > 0){\n'
     + '   digitalWrite(directionPin, HIGH);\n'
-    + '   analogWrite(speedPin, speed);\n'
+    + '   analogWrite(speedPin, 255-speed);\n'
     + '  } else {\n'
     + '   digitalWrite(directionPin, LOW);\n'
     + '   analogWrite(speedPin, -speed);\n'
@@ -325,7 +325,7 @@ Blockly.Arduino.MAKER17_motorA = function() {
   Blockly.Arduino.setups_['setup_output_A_S_W'] = 'digitalWrite('+SPEED_PIN+', LOW);';
   Blockly.Arduino.setups_['setup_output_A_D_W'] = 'digitalWrite('+DIR_PIN+', LOW);';
   var funcName = 'setMotorA';
-  var code2 =' void setMotorA(int speedpin,int dirpin, int speed)\n {\nif (speed == 0)\n{\n   digitalWrite(speedpin, LOW);\n  } \n if (speed > 0)\n{\n   digitalWrite(dirpin, HIGH);\nanalogWrite(speedpin, speed);\n  } \nelse \n{\n digitalWrite(dirpin, LOW);\n   analogWrite(speedpin, -speed);  \n}\n}\n';
+  var code2 =' void setMotorA(int speedpin,int dirpin, int speed)\n {\nif (speed == 0)\n{\n   digitalWrite(speedpin, LOW);\n  } \n if (speed > 0)\n{\n   digitalWrite(dirpin, HIGH);\nanalogWrite(speedpin, 255-speed);\n  } \nelse \n{\n digitalWrite(dirpin, LOW);\n   analogWrite(speedpin, -speed);  \n}\n}\n';
   Blockly.Arduino.definitions_[funcName] = code2;
   return code;
 };
@@ -339,7 +339,7 @@ Blockly.Arduino.MAKER17_motorB = function() {
   Blockly.Arduino.setups_['setup_output_B_S_W'] = 'digitalWrite('+SPEED_PIN+', LOW);';
   Blockly.Arduino.setups_['setup_output_B_D_W'] = 'digitalWrite('+DIR_PIN+', LOW);';
   var funcName = 'setMotorB';
-  var code2 =' void setMotorB(int speedpin,int dirpin, int speed)\n {\nif (speed == 0)\n{\n   digitalWrite(speedpin, LOW);\n  }\n if (speed > 0)\n{\n   digitalWrite(dirpin, HIGH);\nanalogWrite(speedpin, speed);\n  } \nelse \n{\n digitalWrite(dirpin, LOW);\n   analogWrite(speedpin, -speed);  \n}\n}\n';
+  var code2 =' void setMotorB(int speedpin,int dirpin, int speed)\n {\nif (speed == 0)\n{\n   digitalWrite(speedpin, LOW);\n  }\n if (speed > 0)\n{\n   digitalWrite(dirpin, HIGH);\nanalogWrite(speedpin, 255-speed);\n  } \nelse \n{\n digitalWrite(dirpin, LOW);\n   analogWrite(speedpin, -speed);  \n}\n}\n';
   Blockly.Arduino.definitions_[funcName] = code2;
   return code;
 };
@@ -476,9 +476,16 @@ Blockly.Arduino.MP3_init = function () {
   Blockly.Arduino.definitions_['var_MP3'] = 'SoftwareSerial ' + 'mp3Serial' + '(' + RX + ',' + TX + ');';
   Blockly.Arduino.setups_['MP3_setups'] = 'mp3Serial.begin(9600);\n'+'  mp3_set_serial(mp3Serial);\n';
   return "";
-}
+};
 
-
+ // MP3降噪
+Blockly.Arduino.MP3_improve = function() {
+  var dropdown_pin = Blockly.Arduino.valueToCode(this, 'PIN',Blockly.Arduino.ORDER_ATOMIC);
+  var dropdown_stat = this.getTitleValue('STAT');
+  Blockly.Arduino.setups_['setup_output_'+dropdown_pin] = 'pinMode('+dropdown_pin+', OUTPUT);';
+  var code = 'digitalWrite('+dropdown_pin+','+dropdown_stat+');\n'
+  return code;
+};
 
 // MP3设置音量
 Blockly.Arduino.MP3_volume = function() {

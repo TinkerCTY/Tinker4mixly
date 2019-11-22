@@ -523,6 +523,24 @@ Blockly.Blocks.MP3_init = {
     },
 };
 
+// MP3降噪
+Blockly.Blocks.MP3_improve = {
+  init: function() {
+    this.setColour(tinker3_bgc);
+    this.appendDummyInput("")
+      .appendTitle("MP3降噪");
+  this.appendValueInput("PIN", Number)
+        .appendTitle("RX#")
+        .setCheck(Number);
+  this.appendDummyInput("")
+    .appendTitle(Blockly.MIXLY_STAT)
+        .appendTitle(new Blockly.FieldDropdown([[Blockly.MIXLY_ON, "LOW"], [Blockly.MIXLY_OFF, "HIGH"]]), "STAT");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setTooltip("解决MP3噪声问题，通常放在初始化MP3模块后");
+  }
+};
+
 
 // MP3设置音量
 Blockly.Blocks.MP3_volume = {
